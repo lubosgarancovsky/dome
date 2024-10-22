@@ -1,0 +1,12 @@
+[package]
+name = "dome"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rpassword = "7.3"
+argon2 = "0.5.3"
+rand = "0.8"
+aes-gcm = "0.10.3"
+base64 = "0.22.1"
+cli-table = "0.4"
