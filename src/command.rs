@@ -12,6 +12,7 @@ const MASTER_PASSWORD_TEXT: &str = "Enter master password: ";
 const PASSWORD_TEXT: &str = "Password: ";
 const REPEAT_PASSWORD_TEXT: &str = "Repeat password: ";
 
+// dome help
 pub fn command_help() {
     let help = vec![
         vec!["--version", "Displays current version of Dome."],
@@ -35,6 +36,7 @@ pub fn command_help() {
     }
 }
 
+// dome list
 pub fn command_list() {
     let index_binaries: Vec<u8> = storage::read_index().unwrap();
     let index_set = IndexSet::from_binary(&index_binaries);
@@ -42,6 +44,7 @@ pub fn command_list() {
     display::print_index(&index_set);
 }
 
+// dome gen <length>
 pub fn command_generate(len: u8) {
     let mut password = Vec::new();
     let mut rng = rand::thread_rng();
@@ -55,6 +58,7 @@ pub fn command_generate(len: u8) {
     println!("{}", result)
 }
 
+// dome add <domain> -u <username>
 pub fn command_add(domain: &str, username: &str) {
     let mut index_binaries: Vec<u8> = storage::read_index().unwrap();
     let mut index_set = IndexSet::from_binary(&index_binaries);
@@ -92,6 +96,7 @@ pub fn command_add(domain: &str, username: &str) {
     }
 }
 
+// dome get <domain>
 pub fn command_get(domain: &str) {
     let index_binaries: Vec<u8> = storage::read_index().unwrap();
     let index_set = IndexSet::from_binary(&index_binaries);
@@ -111,6 +116,7 @@ pub fn command_get(domain: &str) {
     }
 }
 
+// dome --version
 pub fn command_version() {
     let version = env!("CARGO_PKG_VERSION");
     println!("Dome - {}", version);
