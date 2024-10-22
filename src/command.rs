@@ -4,9 +4,10 @@ use crate::index_set::IndexSet;
 use crate::storage;
 use crate::{crypto, errs};
 
+use rand::Rng;
 use std::collections::HashMap;
 
-const COMMANDS: [&str; 5] = ["--version", "help", "add", "get", "list"];
+const COMMANDS: [&str; 6] = ["--version", "help", "add", "get", "list", "gen"];
 const MASTER_PASSWORD_TEXT: &str = "Enter master password: ";
 const PASSWORD_TEXT: &str = "Password: ";
 const REPEAT_PASSWORD_TEXT: &str = "Repeat password: ";
@@ -20,6 +21,10 @@ pub fn command_help() {
             "Adds new entry into the vault. Username is optional.",
         ],
         vec!["get <domain>", "Shows the password for given domain."],
+        vec![
+            "gen <length>",
+            "Generates random password of the given length.",
+        ],
     ];
 
     println!("List of all availible commands:\n");
@@ -35,6 +40,19 @@ pub fn command_list() {
     let index_set = IndexSet::from_binary(&index_binaries);
 
     display::print_index(&index_set);
+}
+
+pub fn command_generate(len: u8) {
+    let mut password = Vec::new();
+    let mut rng = rand::thread_rng();
+
+    for _ in 0..len {
+        let dec: u8 = rng.gen_range(33..=122);
+        password.push(dec as char);
+    }
+
+    let result = String::from_iter(password);
+    println!("{}", result)
 }
 
 pub fn command_add(domain: &str, username: &str) {

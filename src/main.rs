@@ -49,6 +49,18 @@ fn main() {
                     None => println!("Domain not specified."),
                 }
             }
+
+            if c.command == "gen" {
+                let len = match c.args.first() {
+                    Some(value) => match value.parse::<u8>() {
+                        Ok(num) => num,
+                        Err(e) => panic!("Length must be a number between 0 and 255"),
+                    },
+                    None => 8,
+                };
+
+                command::command_generate(len);
+            }
         }
     }
 }
