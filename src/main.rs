@@ -1,10 +1,10 @@
 use std::env;
+mod cli;
 mod command;
 mod crypto;
-mod display;
+mod datastructures;
 mod entry;
 mod errs;
-mod index_set;
 mod storage;
 
 fn main() {
@@ -39,6 +39,13 @@ fn main() {
 
                         command::command_add(domain, username)
                     }
+                    None => println!("Domain not specified."),
+                }
+            }
+
+            if c.command == "remove" {
+                match c.args.first() {
+                    Some(domain) => command::command_remove(domain),
                     None => println!("Domain not specified."),
                 }
             }
