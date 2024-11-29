@@ -65,9 +65,10 @@ pub fn vault_remove(start_byte: u64) -> u64 {
     let size = b_entry.len() as u64;
 
     let mut file = OpenOptions::new()
-        .write(true)
-        .open(super::vault_file_path())
-        .unwrap();
+    .read(true)
+    .write(true) 
+    .open(super::vault_file_path())
+    .unwrap();
 
     let file_len = file.metadata().unwrap().len();
     file.seek(SeekFrom::Start(start_byte + size)).unwrap();
